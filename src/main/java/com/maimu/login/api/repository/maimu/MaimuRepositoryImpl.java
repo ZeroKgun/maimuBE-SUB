@@ -16,11 +16,12 @@ public class MaimuRepositoryImpl implements MaimuRepositoryCustom{
 
     @Override
     public List<Maimu> getList(MaimuSearch maimuSearch) {
-        return jpaQueryFactory.selectFrom(maimu)
-                .limit(maimuSearch.getSize())
-                .offset(maimuSearch.getOffset())
-                .orderBy(maimu.id.desc())
-                .fetch();
+//        return jpaQueryFactory.selectFrom(maimu)
+//                .limit(maimuSearch.getSize())
+//                .offset(maimuSearch.getOffset())
+//                .orderBy(maimu.id.desc())
+//                .fetch();
+        return null;
     }
 
 }

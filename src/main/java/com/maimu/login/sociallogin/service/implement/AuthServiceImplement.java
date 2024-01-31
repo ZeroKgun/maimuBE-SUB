@@ -27,8 +27,8 @@ public class AuthServiceImplement implements AuthService {
     @Override
     public ResponseEntity<? super IdCheckResponseDto> idCheck(IdCheckRequestDto dto) {
         try{
-            String userId = dto.getId();
-            boolean isExistId = usersRepository.existsByUserId(userId);
+            String email = dto.getEmail();
+            boolean isExistId = usersRepository.existsByEmail(email);
             if(isExistId) return IdCheckResponseDto.duplicateId();
         } catch (Exception exception){
             exception.printStackTrace();
@@ -41,13 +41,13 @@ public class AuthServiceImplement implements AuthService {
     @Override
     public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto) {
         try{
-            String userId = dto.getId();
-            boolean isExistId = usersRepository.existsByUserId(userId);
+            String email = dto.getEmail();
+            boolean isExistId = usersRepository.existsByEmail(email);
             if(isExistId) return SignUpResponseDto.duplicatedId();
 
-            String password = dto.getPassword();
-            String encodedPassword = passwordEncoder.encode(password);
-            dto.setPassword(encodedPassword);
+//            String password = dto.getPassword();
+//            String encodedPassword = passwordEncoder.encode(password);
+//            dto.setPassword(encodedPassword);
 
             Users users = new Users(dto);
             usersRepository.save(users);
@@ -65,16 +65,16 @@ public class AuthServiceImplement implements AuthService {
         String token = null;
 
         try{
-            String userId = dto.getId();
-            Users users = usersRepository.findByUserId(userId);
+            String email = dto.getEmail();
+            Users users = usersRepository.findByEmail(email);
             if(users == null) SignInResponseDto.signInFail();
 
-            String password = dto.getPassword();
-            String encodedPassword = users.getPassword();
-            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-            if(!isMatched) return SignInResponseDto.signInFail();
+//            String password = dto.getPassword();
+//            String encodedPassword = users.getPassword();
+//            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
+//            if(!isMatched) return SignInResponseDto.signInFail();
 
-            token = jwtProvider.create(userId);
+            token = jwtProvider.create(email);
 
         } catch(Exception exception){
             exception.printStackTrace();

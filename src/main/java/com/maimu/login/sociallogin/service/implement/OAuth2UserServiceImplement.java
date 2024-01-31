@@ -53,6 +53,6 @@ public class OAuth2UserServiceImplement extends DefaultOAuth2UserService {
         }
         usersRepository.save(users);
 
-        return new CustomOAuth2User(userId);
+        return new CustomOAuth2User(email);
     }
 }
