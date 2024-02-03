@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class IdCheckRequestDto {
 
-    private String id;
+    private String email;
 }
